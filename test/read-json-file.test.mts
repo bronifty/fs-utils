@@ -1,4 +1,4 @@
-import { readJsonFile } from '../src/index.ts';
+import { readJsonFileRelativeToRoot } from '../src/index.ts';
 import assert from 'assert';
 import fs from 'fs/promises';
 import path from 'path';
@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function testReadJsonFile() {
+async function testreadJsonFileRelativeToRoot() {
   // Create a temporary JSON file for testing
   const testData = { key: 'value' };
   const testFileName = 'test.json';
@@ -27,7 +27,7 @@ async function testReadJsonFile() {
   await fs.writeFile(testFilePath, JSON.stringify(testData));
 
   try {
-    const result = await readJsonFile(testFilePath);
+    const result = await readJsonFileRelativeToRoot(testFilePath);
     assert.deepStrictEqual(
       result,
       testData,
@@ -35,7 +35,7 @@ async function testReadJsonFile() {
     );
     console.log('ESM Test passed: readJsonFile works correctly');
 
-    const packageJson = await readJsonFile('../package.json');
+    const packageJson = await readJsonFileRelativeToRoot('../package.json');
     assert(packageJson.name, 'package.json should have a name');
     console.log('ESM Test passed: readJsonFile works correctly');
   } catch (error) {
@@ -46,4 +46,4 @@ async function testReadJsonFile() {
   }
 }
 
-testReadJsonFile();
+testreadJsonFileRelativeToRoot();

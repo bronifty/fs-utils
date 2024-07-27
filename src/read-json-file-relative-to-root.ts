@@ -1,9 +1,9 @@
-export { readJsonFile };
+export { readJsonFileRelativeToRoot };
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-async function readJsonFile(relativePath: string) {
+async function readJsonFileRelativeToRoot(relativePath: string) {
   const callerDir = path.dirname(
     new Error().stack!.split('\n')[2].match(/\((.*):\d+:\d+\)$/)?.[1] ?? '',
   );

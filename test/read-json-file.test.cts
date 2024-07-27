@@ -1,9 +1,9 @@
-const { readJsonFile } = require('../src/index.ts');
+const { readJsonFileRelativeToRoot } = require('../src/index.ts');
 const assert = require('assert');
 const fs = require('fs/promises');
 const path = require('path');
 
-async function testReadJsonFile() {
+async function testreadJsonFileRelativeToRoot() {
   // Create a temporary JSON file for testing
   const testData = { key: 'value' };
   const testFileName = 'test.json';
@@ -25,7 +25,7 @@ async function testReadJsonFile() {
 
   try {
     // Test reading a file relative to the test directory
-    const result = await readJsonFile(testFilePath);
+    const result = await readJsonFileRelativeToRoot(testFilePath);
     assert.deepStrictEqual(
       result,
       testData,
@@ -36,7 +36,7 @@ async function testReadJsonFile() {
     );
 
     // Test reading package.json from the root directory
-    const packageJson = await readJsonFile('../package.json');
+    const packageJson = await readJsonFileRelativeToRoot('../package.json');
     assert(packageJson.name, 'Package.json should have a name property');
     console.log(
       'CJS Test passed: readJsonFile can read package.json from root',
@@ -49,7 +49,7 @@ async function testReadJsonFile() {
   }
 }
 
-testReadJsonFile();
+testreadJsonFileRelativeToRoot();
 
 // const { readJsonFile } = require('../src/index.ts');
 // const assert = require('assert');
