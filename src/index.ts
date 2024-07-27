@@ -1,1 +1,2 @@
-export { getCurrentFilePath } from './get-current-filepath';
+export { readJsonFile } from './readJsonFile';
+export { ObservableFactory } from './observable';
