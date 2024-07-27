@@ -1,7 +1,7 @@
-import { readJsonFile } from '../src/readJsonFile.ts';
-import assert from 'assert';
-import fs from 'fs/promises';
-import path from 'path';
+const { readJsonFile } = require('../src/index.ts');
+const assert = require('assert');
+const fs = require('fs/promises');
+const path = require('path');
 
 async function testReadJsonFile() {
   // Create a temporary JSON file for testing
