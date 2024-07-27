@@ -1,1 +1,1 @@
-export { getCurrentFilePath } from './getCurrentFilePath';
+export { getCurrentFilePath } from './get-current-filepath';
