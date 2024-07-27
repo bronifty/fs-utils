@@ -10,12 +10,22 @@ async function testReadJsonFile() {
   const testDir = path.join(__dirname, 'events');
   const testFilePath = path.join(testDir, testFileName);
 
-  await fs.mkdir(testDir, { recursive: true });
+  // Check if directory exists before creating it
+  try {
+    await fs.access(testDir);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      await fs.mkdir(testDir, { recursive: true });
+    } else {
+      throw error;
+    }
+  }
+
   await fs.writeFile(testFilePath, JSON.stringify(testData));
 
   try {
     // Test reading a file relative to the test directory
-    const result = await readJsonFile('./events/test.json');
+    const result = await readJsonFile(testFilePath);
     assert.deepStrictEqual(
       result,
       testData,
