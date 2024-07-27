@@ -11,7 +11,7 @@ pnpm add @bronifty/fs-utils
 - c[tj]s
 
 ```ts
-import { getProjectRoot } from '@bronifty/fs-utils';
+const { getProjectRoot } = require('@bronifty/fs-utils');
 
 // same result as process.cwd()
 console.log('getProjectRoot()', getProjectRoot());
