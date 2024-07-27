@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-export function getCurrentFilePath(importMetaUrl) {
+export function getCurrentFilePath(importMetaUrl: string) {
   if (typeof __filename !== 'undefined' && typeof __dirname !== 'undefined') {
     // CommonJS
     return {
