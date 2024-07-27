@@ -4,7 +4,68 @@
 pnpm add @bronifty/fs-utils
 ```
 
-# marcs-observable
+---
+
+## get-project-root
+
+- c[tj]s
+
+```ts
+import { getProjectRoot } from '@bronifty/fs-utils';
+
+// same result as process.cwd()
+console.log('getProjectRoot()', getProjectRoot());
+console.log('process.cwd()', process.cwd());
+```
+
+- m[tj]s
+
+```ts
+import { getProjectRoot } from '@bronifty/fs-utils';
+
+// same result as process.cwd()
+console.log('getProjectRoot()', getProjectRoot());
+console.log('process.cwd()', process.cwd());
+```
+
+---
+
+## read-json-file
+
+- c[tj]s
+
+```ts
+const {
+  getProjectRoot,
+  readJsonFileRelativeToRoot,
+} = require('@bronifty/fs-utils');
+
+const json = await readJsonFileRelativeToRoot('./package.json');
+const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
+  `${getProjectRoot()}/package.json`,
+);
+// same result
+console.log(json);
+console.log(jsonWithGetProjectRoot);
+```
+
+- m[tj]s
+
+```ts
+import { readJsonFileRelativeToRoot, getProjectRoot } from '@bronifty/fs-utils';
+
+const json = await readJsonFileRelativeToRoot('./package.json');
+const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
+  `${getProjectRoot()}/package.json`,
+);
+// same result
+console.log(json);
+console.log(jsonWithGetProjectRoot);
+```
+
+---
+
+## marcs-observable
 
 - basic functionality
 
@@ -83,11 +144,27 @@ const App = () => {
 export default App;
 ```
 
-# read-json-file
+---
 
-```ts
-import { readJsonFile } from '@bronifty/fs-utils';
+### Config
 
-const json = await readJsonFile('./package.json');
-console.log(json);
+- example tsconfig.json (typeRoots) for a consuming app of the library
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "typeRoots": ["./node_modules/@bronifty/fs-utils/dist/types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
 ```
+
+---
