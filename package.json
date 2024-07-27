@@ -1,6 +1,6 @@
 {
   "name": "@bronifty/fs-utils",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "module": "./dist/es/index.js",
   "main": "./dist/lib/index.js",
   "types": "./dist/types/index.d.ts",

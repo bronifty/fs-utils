@@ -2,7 +2,9 @@
 
 ### Using [ByteDance Web-Infra modern.js module-tools](https://modernjs.dev/module-tools/en/api/plugin-api/plugin-hooks.html) to build an npm library
 
-[![npm version](https://badge.fury.io/js/%40bronifty%2Ffs-utils.svg)](https://badge.fury.io/js/%40bronifty%2Ffs-utils)
+[![npm version](https://img.shields.io/badge/npm-v0.0.9-blue)](https://www.npmjs.com/package/@bronifty/fs-utils)
+
+<!-- [![npm version](https://badge.fury.io/js/%40bronifty%2Ffs-utils.svg)](https://badge.fury.io/js/%40bronifty%2Ffs-utils) -->
 
 ```sh
 pnpm add @bronifty/fs-utils
