@@ -1,14 +1,14 @@
 {
-  "type": "module",
   "name": "fs-utils",
   "version": "0.1.0",
   "types": "./dist/types/index.d.ts",
   "main": "./dist/lib/index.js",
   "module": "./dist/es/index.js",
   "scripts": {
+    "clean": "rimraf ./dist",
     "prepare": "modern build",
     "dev": "modern dev",
-    "build": "modern build",
+    "build": "pnpm clean && modern build",
     "build:watch": "modern build -w",
     "reset": "rimraf ./**/node_modules",
     "lint": "modern lint",
@@ -20,7 +20,7 @@
     "release": "modern release",
     "new": "modern new",
     "upgrade": "modern upgrade",
-    "test": "node --test"
+    "test": "tsx --test"
   },
   "devDependencies": {
     "@modern-js/eslint-config": "2.56.2",

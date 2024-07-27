@@ -1,22 +1,24 @@
-export { getCurrentFilePath };
-
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-function getCurrentFilePath(importMetaUrl: string) {
+function getCurrentFilePath(importMetaUrl?: string) {
   if (typeof __filename !== 'undefined' && typeof __dirname !== 'undefined') {
     // CommonJS
     return {
-      __filename,
-      __dirname,
+      getCurrentFilename: (pathStr = './') => path.resolve(__filename, pathStr),
+      getCurrentDirname: (pathStr = './') => path.resolve(__dirname, pathStr),
     };
-  } else {
-    // ESM
+  } else if (importMetaUrl) {
+    // ES Module
     const __filename = fileURLToPath(importMetaUrl);
     const __dirname = path.dirname(__filename);
     return {
-      __filename,
-      __dirname,
+      getCurrentFilename: (pathStr = './') => path.resolve(__filename, pathStr),
+      getCurrentDirname: (pathStr = './') => path.resolve(__dirname, pathStr),
     };
+  } else {
+    throw new Error('Unable to determine current file path');
   }
 }
+
+export { getCurrentFilePath };
