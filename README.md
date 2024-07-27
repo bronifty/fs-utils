@@ -91,17 +91,20 @@ console.log('should equal [1,2,3,4]: ', getter());
 
 - application example
 
+> Note: the fs-utils library is built for node; it breaks in the browser until i can figure out how the modernjs plugin system works or figure out a build config. for now, to use it in an app like react, you can use the @bronifty/marcs-observable package
+
 ```ts
 import React from 'react';
-import MarcsObservable from '@bronifty/marcs-observable';
+import ObservableFactory from '@bronifty/marcs-observable';
+import './App.css';
 
 // declaring our observable state outside the component to maintain state across re-renders; this could also be done in a store and imported
 const [
   childObservableGetter,
   childObservableSetter,
   childObservableSubscriber,
-] = MarcsObservable.useState(0);
-const [parentObservableGetter] = MarcsObservable.useState(
+] = ObservableFactory.useState(0);
+const [parentObservableGetter] = ObservableFactory.useState(
   () => childObservableGetter() * 2,
 );
 let unsubscribe = () => {};
