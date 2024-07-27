@@ -17,7 +17,7 @@ async function testReadJsonFile() {
   await fs.writeFile(testFilePath, JSON.stringify(testData));
 
   try {
-    const result = await readJsonFile(testFileName);
+    const result = await readJsonFile(`./${testFileName}`);
     assert.deepStrictEqual(
       result,
       testData,

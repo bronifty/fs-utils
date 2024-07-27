@@ -1,40 +1,93 @@
-# Modern.js Package
+# fs-utils
 
-## Setup
-
-Install the dependencies:
-
-```bash
-pnpm run install
+```sh
+pnpm add @bronifty/fs-utils
 ```
 
-## Get Started
+# marcs-observable
 
-Run and debug the module:
+- basic functionality
 
-```bash
-pnpm run dev
+```ts
+import { ObservableFactory } from '@bronifty/fs-utils';
+
+const [getter, setter, subscriber] = ObservableFactory.useState([]);
+
+let count = 0;
+subscriber(() => count++);
+const arr = [1, 2];
+setter(arr);
+
+arr.push(3);
+setter([1, 2, 3]);
+console.log('should equal 2: ', count);
+arr.push(4);
+console.log('should equal 2: ', count);
+setter([1, 2, 3, 4]);
+console.log('should equal 3: ', count);
+console.log('should equal [1,2,3,4]: ', getter());
 ```
 
-Build the module for production:
+- application example
 
-```bash
-pnpm run build
+```ts
+import React from 'react';
+import MarcsObservable from '@bronifty/marcs-observable';
+
+// declaring our observable state outside the component to maintain state across re-renders; this could also be done in a store and imported
+const [
+  childObservableGetter,
+  childObservableSetter,
+  childObservableSubscriber,
+] = MarcsObservable.useState(0);
+const [parentObservableGetter] = MarcsObservable.useState(
+  () => childObservableGetter() * 2,
+);
+let unsubscribe = () => {};
+
+const App = () => {
+  // subscribing react hook for ui update to observable value update inside a useEffect so it runs once on mount and doesn't get re-assigned every re-render
+  const [input1, setInput1] = React.useState(childObservableGetter());
+  React.useEffect(() => {
+    unsubscribe = childObservableSubscriber((newVal: any) => {
+      setInput1(newVal);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []); // Empty dependency array ensures this effect runs only once on mount
+
+  const handleInputChange = (e: any) => {
+    childObservableSetter(e.target.value); // Update observable state
+  };
+
+  return (
+    <>
+      <section>
+        <h2>numeric input</h2>
+        <input type="number" value={input1} onChange={handleInputChange} />
+        <p>
+          childObservableGetter value (childObservableGetter()):{' '}
+          {childObservableGetter()}
+        </p>
+        <p>
+          parentObservableGetter value (parentObservableGetter()):{' '}
+          {parentObservableGetter()}
+        </p>
+        <button onClick={unsubscribe}>unsubscribe from ui updates</button>
+      </section>
+    </>
+  );
+};
+
+export default App;
 ```
 
-Enable optional features:
+# read-json-file
 
-```bash
-pnpm run new
+```ts
+import { readJsonFile } from '@bronifty/fs-utils';
+
+const json = await readJsonFile('./package.json');
+console.log(json);
 ```
-
-Other commands:
-
-```bash
-pnpm run lint         # Lint and fix source files
-pnpm run change       # Add a new changeset
-pnpm run bump         # Update version and changelog via changeset
-pnpm run release      # Release the package
-```
-
-For more information, see the [Modern.js Module documentation](https://modernjs.dev/module-tools/en).

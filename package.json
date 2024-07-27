@@ -1,6 +1,6 @@
 {
-  "name": "fs-utils",
-  "version": "0.1.0",
+  "name": "@bronifty/fs-utils",
+  "version": "0.0.1",
   "module": "./dist/es/index.js",
   "main": "./dist/lib/index.js",
   "types": "./dist/types/index.d.ts",
@@ -27,7 +27,8 @@
     "release": "modern release",
     "new": "modern new",
     "upgrade": "modern upgrade",
-    "test": "tsx --test"
+    "test": "tsx --test",
+    "node:ts": "node --experimental-strip-types read-json-file.cts"
   },
   "devDependencies": {
     "@modern-js/eslint-config": "2.56.2",
