@@ -1,4 +1,8 @@
-# fs-utils
+# @bronifty/fs-utils
+
+### Using [ByteDance Web-Infra modern.js module-tools](https://modernjs.dev/module-tools/en/api/plugin-api/plugin-hooks.html) to build an npm library
+
+[![npm version](https://badge.fury.io/js/%40bronifty%2Ffs-utils.svg)](https://badge.fury.io/js/%40bronifty%2Ffs-utils)
 
 ```sh
 pnpm add @bronifty/fs-utils
