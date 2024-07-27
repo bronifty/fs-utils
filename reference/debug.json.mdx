@@ -1,0 +1,32 @@
+# Debugging
+
+- make sure your editor window is in the root of your single project flush with the package.json
+
+```sh
+fnm install 22
+fnm default 22
+corepack enable
+corepack prepare pnpm@latest --activate
+pnpm add -D tsx
+```
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug local file",
+      "runtimeExecutable": "tsx",
+      "args": ["${relativeFile}"],
+      "env": {
+        "AWS_REGION": "us-east-1"
+      }
+    }
+  ]
+}
+```
