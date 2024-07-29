@@ -97,7 +97,37 @@ On the permissions tab of the bucket, edit the policy and paste from your clipbo
 
 ![bucket-policy](./bucket-policy.png)
 
-## Custom Container
+Now follow your distribution's domain to your protected website (only this cloudfront can access it with its signed aka authenticated headers).
+
+![cloudfront-s3-website](./cloudfront-s3-website.png)
+
+:::tip{title="Milestone:"}
+
+All set. let's point the DNS A record to this distribution and get a domain name for your website.
+
+:::
+
+## DNS Resolution to Cloudfront Distribution
+
+In Route 53, create a simple A (ip address) record to point your apex domain to your cloudfront distribution.
+
+![a-record](./a-record.png)
+
+:::danger{title="t-shoot"}
+
+This will point your domain name to the ip address of the cloudfront distribution and we will check it with `dig` to verify. This is also where you can t-shoot the dns resolution.
+
+:::
+
+Define another A record to redirect to the apex domain's record.
+
+![redirect-a-record](./redirect-a-record.png)
+
+:::warning
+
+Typically the redirect is done with a CNAME record, but Route 53 is handling it differently.
+
+:::
 
 You can use the `:::` syntax to create custom containers and support custom titles. For example:
 
