@@ -5,3 +5,8 @@
 ```sh
 dig domain-name
 ```
+
+### cloudfront specifics
+
+- add a cname record for each alternate domain that you want routed to the cloudfront distribution
+- route 53 has a redirect record to point from apex to www or vice versa. you only need one bucket and one distribution but multiple dns records
