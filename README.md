@@ -36,6 +36,41 @@ console.log('process.cwd()', process.cwd());
 
 ---
 
+## read-json
+
+- c[tj]s
+
+```ts
+const {
+  getProjectRoot,
+  readJsonFileRelativeToRoot,
+} = require('@bronifty/fs-utils');
+
+const json = await readJsonFileRelativeToRoot('./package.json');
+const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
+  `${getProjectRoot()}/package.json`,
+);
+// same result
+console.log(json);
+console.log(jsonWithGetProjectRoot);
+```
+
+- m[tj]s
+
+```ts
+import { readJsonFileRelativeToRoot, getProjectRoot } from '@bronifty/fs-utils';
+
+const json = await readJsonFileRelativeToRoot('./package.json');
+const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
+  `${getProjectRoot()}/package.json`,
+);
+// same result
+console.log(json);
+console.log(jsonWithGetProjectRoot);
+```
+
+---
+
 ## read-json-file
 
 - c[tj]s
