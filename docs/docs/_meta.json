@@ -1,0 +1,17 @@
+[
+  {
+    "text": "Guide",
+    "link": "/guide/",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "api",
+    "link": "/api/",
+    "activeMatch": "/api/"
+  },
+  {
+    "text": "playground",
+    "link": "/playground/",
+    "activeMatch": "/playground/"
+  }
+]

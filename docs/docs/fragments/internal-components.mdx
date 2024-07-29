@@ -1,0 +1,379 @@
+## Badge
+
+The Badge component is used to display a badge. For example:
+
+```tsx title="index.mdx"
+import { Badge } from '@theme';
+
+function App() {
+  return <Badge text="info" type="info" />;
+}
+```
+
+The effect is as follows:
+
+import { Badge } from '@theme';
+
+<Badge text="info" type="info" />
+<Badge text="warning" type="warning" />
+<Badge text="danger" type="danger" />
+
+The types of props included are as follows:
+
+```ts
+interface BadgeProps {
+  // Used to set the text of the badge
+  text: string;
+  // Used to set the type of the badge
+  type?: 'info' | 'warning' | 'danger';
+}
+```
+
+## Helmet
+
+It is generally used to set custom head content in documents (based on [react-helmet-async](https://www.npmjs.com/package/react-helmet-async)). The usage is as follows:
+
+```tsx title="index.tsx"
+// Below is a custom component, you can import it into your document
+import { Helmet } from 'rspress/runtime';
+
+function App() {
+  return (
+    <Helmet>
+      <meta property="og:description" content="Out-of-box Rspack build tools" />
+    </Helmet>
+  );
+}
+```
+
+## HomeFeature
+
+Feature component in Hero page, look [the effect in this website](/).
+
+```tsx
+import { HomeFeature } from 'rspress/theme';
+
+interface Feature {
+  title: string;
+  details: string;
+  icon: string;
+  // only support [3, 4, 6]
+  span?: number;
+  link?: string;
+}
+
+export type Features = Feature[];
+```
+
+## HomeHero
+
+Hero component in Hero page.
+
+```tsx
+import { HomeHero } from 'rspress/theme';
+
+interface Hero {
+  name: string;
+  text: string;
+  tagline: string;
+  image?: {
+    src: string | { dark: string; light: string };
+    alt: string;
+  };
+  actions: {
+    text: string;
+    link: string;
+    theme: 'brand' | 'alt';
+  }[];
+}
+```
+
+## LastUpdated
+
+The LastUpdated component is used to display the last update time of the current page. For example:
+
+```tsx title="index.mdx"
+import { LastUpdated } from '@theme';
+
+function App() {
+  return <LastUpdated />;
+}
+```
+
+:::tip
+
+If `lastUpdated: true` is not configured in the default theme, you need to install and register the `@rspress/plugin-last-updated` plugin.
+
+:::
+
+## NoSSR
+
+Used to skip the ssr for some components. For example:
+
+```tsx
+import { NoSSR } from 'rspress/runtime';
+
+const Component = () => {
+  return (
+    <NoSSR>
+      <div>The content here will only be rendered on the client side</div>
+    </NoSSR>
+  );
+};
+```
+
+## Overview
+
+Overview component, look [the effect in this website](/api/)
+
+```tsx
+import { Overview } from 'rspress/theme';
+
+interface GroupItem {
+  text?: string;
+  link?: string;
+  headers?: Header[];
+}
+
+interface Group {
+  name: string;
+  items: GroupItem[];
+}
+
+interface OverviewProps {
+  // content before data rendering
+  content?: React.ReactNode;
+  // data
+  groups?: Group[];
+  // default title
+  defaultGroupTitle?: string;
+  // headers displayed in the overview page of the file
+  overviewHeaders?: number[];
+}
+```
+
+## PackageManagerTabs
+
+The PackageManagerTabs component is used to display commands for different package managers in the documentation. The usage is as follows:
+
+```tsx title="index.mdx"
+import { PackageManagerTabs } from '@theme';
+
+function App() {
+  return <PackageManagerTabs command="install rspress -D" />;
+}
+```
+
+The effect is as follows:
+
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="install rspress -D" />
+
+The types of props included are as follows:
+
+```ts
+interface PackageManagerTabsProps {
+  command:
+    | string
+    | {
+        // Used to set commands for different package managers
+        npm?: string;
+        yarn?: string;
+        pnpm?: string;
+        bun?: string;
+      };
+  // Used to set additional tabs
+  additionalTabs: {
+    // Used to set additional package managers
+    tool: string;
+    // Used to set the icon of the additional package manager
+    icon?: React.ReactNode;
+  }[];
+}
+```
+
+When `command` is set to a string, it will default to displaying three tabs: npm, yarn, pnpm and bun, and the component will automatically add the corresponding package manager command before the command. If you need to display additional tabs, you can achieve this through `additionalTabs`.
+
+:::tip
+
+In the install command, special processing has been done for yarn and bun. If your command is `install some-packages`, the install will be automatically replaced with add in the yarn/bun tab.
+
+:::
+
+## PrevNextPage
+
+The PrevNextPage component is used to display the previous and next pages of the current page. For example:
+
+```tsx title="index.mdx"
+import { PrevNextPage } from '@theme';
+
+function App() {
+  return (
+    <PrevNextPage
+      type="prev"
+      text="Previous Page"
+      href="https://rspress.dev/"
+    />
+  );
+}
+```
+
+The types of props included are as follows:
+
+```ts
+interface PrevNextPageProps {
+  // Set the link to the previous page or the next page through type
+  type: 'prev' | 'next';
+  // Used to set the text of the previous page or the next page
+  text: string;
+  // Used to set the link to the previous page or the next page
+  href: string;
+}
+```
+
+## SourceCode
+
+The SourceCode component is used to jump to the source code. For example:
+
+```tsx title="index.mdx"
+import { SourceCode } from '@theme';
+
+function App() {
+  return (
+    <SourceCode href="https://github.com/web-infra-dev/rspress/blob/main/packages/theme-default/src/components/SourceCode/index.tsx" />
+  );
+}
+```
+
+The effect is as follows:
+
+import { SourceCode } from '@theme';
+
+<SourceCode href="https://github.com/web-infra-dev/rspress/blob/main/packages/theme-default/src/components/SourceCode/index.tsx" />
+
+The types of props included are as follows:
+
+```ts
+interface SourceCodeProps {
+  // Used to set the link to the source code
+  href: string;
+  // Used to set source platform
+  platform?: 'github' | 'gitlab';
+}
+```
+
+## Steps
+
+The Steps component is used to turn your content into a visual representation of steps.
+
+```tsx title="index.mdx"
+import { Steps } from '@theme';
+
+function App() {
+  return (
+    <Steps>
+      ### Step 1
+
+      Body for Step 1.
+
+      ### Step 2
+
+      > Body for Step 2.
+    </Steps>
+  );
+}
+```
+
+The effect is as follows:
+
+import { Steps } from '@theme';
+
+<Steps>
+  ### Step 1
+
+Body for Step 1.
+
+### Step 2
+
+> Body for Step 2.
+
+</Steps>
+
+## Tab/Tabs
+
+You can directly use the Tab/Tabs component in the document to achieve the effect of tab switching. For example:
+
+```tsx title="index.mdx"
+import { Tab, Tabs } from 'rspress/theme';
+
+function App() {
+  return (
+    <Tabs>
+      <Tab label="Tab 1">Tab 1 content</Tab>
+      <Tab label="Tab 2">Tab 2 content</Tab>
+    </Tabs>
+  );
+}
+```
+
+import { Tab, Tabs } from '@theme';
+
+<Tabs>
+  <Tab label="1" value="1">
+    Tab 1 content
+  </Tab>
+  <Tab label="2" value="2">
+    Tab 2 content
+  </Tab>
+</Tabs>
+
+:::info Note
+In order to make it easier for you to use these components, the `rspress/theme` package has been aliased inside the framework, so you can directly use `@theme` to import these components.
+:::
+
+The props type of the Tabs component is as follows:
+
+```ts
+interface TabsProps {
+  children: React.ReactNode;
+  defaultValue?: string;
+  groupId?: string;
+  tabPosition?: 'left' | 'center';
+}
+```
+
+`defaultValue` is used to set the tab item selected by default. This value will be compared with the value field of the Tab component props, and if they are equal, the tab will be selected.
+
+`groupId` is used to sync the selected tab item between multiple Tabs components.The groups with the same groupId will be synchronized.
+
+`tabPosition` is used to set the position of the tab list, it has two values: `left` and `center`, the default is `left`.
+
+The props types of the Tab component are as follows:
+
+```ts
+interface TabProps {
+  label: string;
+  // Used to identify the current tab, if not passed, the default label will be used
+  value?: string;
+  children: React.ReactNode;
+}
+```
+
+The `value` field is used to identify the current tab, if not passed, the default label will be used.
+
+## Table of Contents
+
+Render TOC of current page
+
+```tsx title="index.mdx"
+import { Toc } from '@theme';
+
+function App() {
+  return <Toc />;
+}
+```
+
+import { Toc } from '@theme';
+
+<Toc />
