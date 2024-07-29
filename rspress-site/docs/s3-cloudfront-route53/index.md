@@ -1,27 +1,61 @@
 # S3 Bucket Website Protected and Cached With Cloudfront CDN and Route 53 DNS
 
-## Markdown
+:::tip{title="Synopsis:"}
 
-MDX is a superset of Markdown, which means you can write Markdown files as usual. For example:
+We will start with Route 53 and Certificate Manager to handle domain control with SSL/TLS certificates and then set up the bucket as an origin for a cloudfront distribution which will serve traffic back through DNS.
 
-```md
-# Hello World
+:::
+
+This is what our system architecture will look like:
+
+![system-architecture](./system-architecture.png)
+
+## Route 53
+
+Create a hosted zone for your apex domain and point your domain registrar's nameservers to Route 53.
+
+![route53](./route-53-name-servers.png)
+
+![namecheap](./namecheap.png)
+
+## Certificate Manager
+
+Request a public certificate for your apex and wildcard subdomain with DNS validation and RSA 2048. Then create records in Route 53 for the validation.
+
+![certificate-manager](./certificate-manager.png)
+
+![route53-validation](./route-53-validation.png)
+
+## Cloudfront Distribution
+
+- oac, cnames cert and default root object to index.html
+
+## S3 Bucket
+
+- policy pointing to cloudfront distribution
+
+```json
+{
+  "Version": "2008-10-17",
+  "Id": "PolicyForCloudFrontPrivateContent",
+  "Statement": [
+    {
+      "Sid": "AllowCloudFrontServicePrincipal",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::bronifty.xyz/*",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceArn": "arn:aws:cloudfront::851725517932:distribution/E2UEHC2IRROLN2"
+        }
+      }
+    }
+  ]
+}
 ```
-
-## Use Component
-
-When you want to use React components in Markdown files, you should name your files with `.mdx` extension. For example:
-
-```mdx
-// docs/index.mdx
-import { CustomComponent } from './custom';
-
-# Hello World
-
-<CustomComponent />
-```
-
-## Front Matter
 
 You can add Front Matter at the beginning of your Markdown file, which is a YAML-formatted object that defines some metadata. For example:
 
