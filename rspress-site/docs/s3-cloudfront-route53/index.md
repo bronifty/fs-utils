@@ -20,19 +20,27 @@ Create a hosted zone for your apex domain and point your domain registrar's name
 
 ## Certificate Manager
 
-Request a public certificate for your apex and wildcard subdomain with DNS validation and RSA 2048. Then create records in Route 53 for the validation.
+Request a public certificate for your apex and wildcard subdomain with DNS validation and RSA 2048. Then click create records in Route 53 and acknowledge for the validation (click "create records" in subsequent window). Then view cert success and route 53 CNAME record.
 
 ![certificate-manager](./certificate-manager.png)
 
 ![route53-validation](./route-53-validation.png)
 
-## Cloudfront Distribution
+![create-records-acknowledgement](./create-records-acknowledgement.png)
 
-- oac, cnames cert and default root object to index.html
+![view-cert-success](./view-cert-success.png)
+
+![route53-cname-record](./route-53-cname-record.png)
+
+:::tip{title="Milestone:"}
+
+All set. let's create our bucket and cloudfront distribution to point the DNS A record to it and get a domain name for your website.
+
+:::
 
 ## S3 Bucket
 
-- policy pointing to cloudfront distribution
+Create a bucket with default properties (block all public access and static web hosting disabled) and drop your static assets in there (eg., with index.html in the root, which we will specify as the root object later in the distribution settings). Once that is set, we will create a distribution pointing to the bucket as origin and circle back to update the bucket policy with something similar to this (only the bucket and distribution arns will change).
 
 ```json
 {
@@ -57,31 +65,37 @@ Request a public certificate for your apex and wildcard subdomain with DNS valid
 }
 ```
 
-You can add Front Matter at the beginning of your Markdown file, which is a YAML-formatted object that defines some metadata. For example:
+## Cloudfront Distribution
 
-```yaml
----
-title: Hello World
----
-```
+Create a distribution with your bucket as origin and create an origin access control (OAC) to send signed headers (authentication) to access the private bucket.
 
-> Note: By default, Rspress uses h1 headings as html headings.
+:::warning
 
-You can also access properties defined in Front Matter in the body, for example:
+Keep all other default settings and customize the following parameters:
 
-```markdown
----
-title: Hello World
----
+- redirect http to https
+- cnames and cert (from cert manager step above)
+- default root object to index.html
 
-# {frontmatter.title}
-```
+:::
 
-The previously defined properties will be passed to the component as `frontmatter` properties. So the final output will be:
+![cloudfront-distribution](./cloudfront-distribution.png)
 
-```html
-<h1>Hello World</h1>
-```
+![oac](./oac.png)
+
+![redirect-https](./redirect-https.png)
+
+![cnames-and-cert](./cnames-and-cert.png)
+
+![default-root-object](./default-root-object.png)
+
+Once you create the distribution, follow the bucket policy update flow by copying the policy and navigating to the bucket to update it.
+
+![bucket-policy-flow](./bucket-policy-flow.png)
+
+On the permissions tab of the bucket, edit the policy and paste from your clipboard.
+
+![bucket-policy](./bucket-policy.png)
 
 ## Custom Container
 
@@ -127,10 +141,6 @@ This is a `block` of type `tip`
 
 :::info
 This is a `block` of type `info`
-:::
-
-:::warning
-This is a `block` of type `warning`
 :::
 
 :::danger
