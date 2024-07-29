@@ -3,7 +3,7 @@ name: Deploy Docs to GitHub Pages
 on:
   push:
     branches:
-      - main  # Set this to your default branch
+      - main
   workflow_dispatch:
 
 permissions:
@@ -21,12 +21,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Adjust this to your project's Node.js version
+          node-version: '18'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8  # Adjust this to your pnpm version
+          version: 8
 
       - name: Install dependencies
         run: pnpm install
@@ -35,6 +35,11 @@ jobs:
       - name: Build documentation
         run: pnpm build
         working-directory: ./docs
+
+      - name: List contents of doc_build
+        run: |
+          echo "Contents of doc_build:"
+          ls -R ./docs/doc_build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
