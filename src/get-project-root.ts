@@ -37,12 +37,12 @@ function findProjectRoot(startDir: string): string {
   return startDir;
 }
 
-const projectRoot1 = getProjectRoot();
+// const projectRoot1 = getProjectRoot();
 
-const projectRoot2 = getProjectRoot('./events/apig.json');
+// const projectRoot2 = getProjectRoot('./events/apig.json');
 
-console.log('projectRoot1', projectRoot1);
-console.log('projectRoot2', projectRoot2);
+// console.log('projectRoot1', projectRoot1);
+// console.log('projectRoot2', projectRoot2);
 
 // export { getProjectRoot };
 // import fs from 'node:fs';

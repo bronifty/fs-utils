@@ -8,6 +8,10 @@ test.describe('getProjectRoot', () => {
     assert.equal(getProjectRoot(), process.cwd());
   });
 
+  test('should return the project root when passed a relative path', () => {
+    assert.equal(getProjectRoot('./events/apig.json'), process.cwd());
+  });
+
   test('should use fallback method when when global error object throws', t => {
     const originalError = global.Error;
     const originalConsoleWarn = console.warn;
