@@ -2,19 +2,19 @@
 pageType: home
 
 hero:
-  name: Rspress
-  text: Rspack-based Static Site Generator
-  tagline: Rspress tagline
+  name: bronifty
+  text: software blog
+  tagline: git r done
   actions:
     - theme: brand
-      text: Quick Start
-      link: /guide/
+      text: first post
+      link: /s3-cloudfront-route53/
     - theme: alt
       text: GitHub
-      link: https://github.com/web-infra-dev/rspress
+      link: https://github.com/bronifty
   image:
-    src: /rspress-icon.png
-    alt: Rspress Logo
+    src: /bronifty-icon.jpg
+    alt: bronifty Logo
 features:
   - title: Blazing fast build speed
     details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
