@@ -1,10 +1,15 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { readJsonFileRelativeToRoot, getProjectRoot } from '../src/index.ts';
-import test from 'node:test';
-import assert from 'node:assert';
+const fs = require('node:fs/promises');
+const path = require('node:path');
+const { getProjectRoot, readJson } = require('../src/index.ts');
+const test = require('node:test');
+const assert = require('node:assert');
 
-test.describe('readJsonFileRelativeToRoot', () => {
+test.describe('readJson', () => {
+  test('should read package.json', async () => {
+    const result = await readJson('../package.json');
+    assert(result.name, 'Package.json should have a name property');
+  });
+
   test('should match the test.json file', async () => {
     const testData = { key: 'value' };
     const testFileName = 'test.json';
@@ -24,7 +29,7 @@ test.describe('readJsonFileRelativeToRoot', () => {
       await fs.writeFile(testFilePath, JSON.stringify(testData));
     }
     try {
-      const result = await readJsonFileRelativeToRoot(testFilePath);
+      const result = await readJson(testFilePath);
       assert.deepStrictEqual(
         result,
         testData,
@@ -36,10 +41,5 @@ test.describe('readJsonFileRelativeToRoot', () => {
       // Clean up: remove the temporary file
       await fs.unlink(testFilePath);
     }
-  });
-
-  test('should read package.json', async () => {
-    const result = await readJsonFileRelativeToRoot('../package.json');
-    assert(result.name, 'Package.json should have a name property');
   });
 });

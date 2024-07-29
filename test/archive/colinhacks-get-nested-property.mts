@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { getProjectRoot, readJson, getNestedProperty } from '../src/index';
+import { getProjectRoot, readJson, getNestedProperty } from '../../src/index';
 
 test.describe('getNestedProperty', () => {
   test('should read json file into memory from project root and get a nested property', async () => {

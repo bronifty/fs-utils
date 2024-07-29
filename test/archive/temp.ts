@@ -1,6 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { getProjectRoot, readJson, getNestedProperty } from '../src/index.ts';
+import {
+  getProjectRoot,
+  readJson,
+  getNestedProperty,
+} from '../../src/index.ts';
 
 async function readJsonGetProperty(path: string) {
   const jsonFile = await readJson(path);
