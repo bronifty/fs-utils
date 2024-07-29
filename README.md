@@ -1,10 +1,8 @@
 # @bronifty/fs-utils
 
-### Using [ByteDance Web-Infra modern.js module-tools](https://modernjs.dev/module-tools/en/api/plugin-api/plugin-hooks.html) to build an npm library
+### Using [ByteDance Web-Infra modern.js module-tools](https://modernjs.dev/module-tools/en/api/plugin-api/plugin-hooks.html) to build an npm library which uses umd (works with import and require)
 
 [![npm version](https://img.shields.io/badge/npm-v0.0.10-green)](https://www.npmjs.com/package/@bronifty/fs-utils)
-
-<!-- [![npm version](https://badge.fury.io/js/%40bronifty%2Ffs-utils.svg)](https://badge.fury.io/js/%40bronifty%2Ffs-utils) -->
 
 ```sh
 pnpm add @bronifty/fs-utils
@@ -12,19 +10,9 @@ pnpm add @bronifty/fs-utils
 
 ---
 
-## get-project-root
+## getProjectRoot
 
-- c[tj]s
-
-```ts
-const { getProjectRoot } = require('@bronifty/fs-utils');
-
-// same result as process.cwd()
-console.log('getProjectRoot()', getProjectRoot());
-console.log('process.cwd()', process.cwd());
-```
-
-- m[tj]s
+- with an optional path argument, the function will walk up the directory tree from the path until it finds a package.json file
 
 ```ts
 import { getProjectRoot } from '@bronifty/fs-utils';
@@ -32,76 +20,62 @@ import { getProjectRoot } from '@bronifty/fs-utils';
 // same result as process.cwd()
 console.log('getProjectRoot()', getProjectRoot());
 console.log('process.cwd()', process.cwd());
+console.log(
+  'getProjectRoot(./path/to/dir/or/file.ext)',
+  getProjectRoot('./path/to/dir/or/file.ext'),
+);
 ```
 
 ---
 
-## read-json
-
-- c[tj]s
+## readJson
 
 ```ts
-const {
-  getProjectRoot,
-  readJsonFileRelativeToRoot,
-} = require('@bronifty/fs-utils');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { getProjectRoot, readJson } from '@bronifty/fs-utils';
 
-const json = await readJsonFileRelativeToRoot('./package.json');
-const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
-  `${getProjectRoot()}/package.json`,
-);
-// same result
-console.log(json);
-console.log(jsonWithGetProjectRoot);
-```
-
-- m[tj]s
-
-```ts
-import { readJsonFileRelativeToRoot, getProjectRoot } from '@bronifty/fs-utils';
-
-const json = await readJsonFileRelativeToRoot('./package.json');
-const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
-  `${getProjectRoot()}/package.json`,
-);
-// same result
-console.log(json);
-console.log(jsonWithGetProjectRoot);
+async function readJsonFile(path: string) {
+  return await readJson(path);
+}
+readJsonFile(`${getProjectRoot()}/package.json`)
+  .then(json => {
+    console.log(json);
+  })
+  .catch(error => {
+    console.error('Error reading JSON file:', error);
+  });
 ```
 
 ---
 
-## read-json-file
+## getNestedProperty
 
-- c[tj]s
+- compliments of [@colinhacks](https://x.com/colinhacks)
+- specify the file and property separated by dots
 
 ```ts
-const {
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {
   getProjectRoot,
-  readJsonFileRelativeToRoot,
-} = require('@bronifty/fs-utils');
+  readJson,
+  getNestedProperty,
+} from '@bronifty/fs-utils';
 
-const json = await readJsonFileRelativeToRoot('./package.json');
-const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
-  `${getProjectRoot()}/package.json`,
-);
-// same result
-console.log(json);
-console.log(jsonWithGetProjectRoot);
-```
+async function readJsonGetProperty(path: string) {
+  const jsonFile = await readJson(path);
+  const result = getNestedProperty(jsonFile, 'multiValueHeaders.Accept.0');
+  return result;
+}
 
-- m[tj]s
-
-```ts
-import { readJsonFileRelativeToRoot, getProjectRoot } from '@bronifty/fs-utils';
-
-const json = await readJsonFileRelativeToRoot('./package.json');
-const jsonWithGetProjectRoot = await readJsonFileRelativeToRoot(
-  `${getProjectRoot()}/package.json`,
-);
-// same result
-console.log(json);
-console.log(jsonWithGetProjectRoot);
+readJsonGetProperty(`${getProjectRoot()}/test/events/apig.json`)
+  .then(result => {
+    console.log('result', result);
+  })
+  .catch(error => {
+    console.error('Error reading JSON file:', error);
+  });
 ```
 
 ---

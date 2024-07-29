@@ -1,8 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { getProjectRoot, readJson, getNestedProperty } from '../src/index.ts';
-import test from 'node:test';
-import assert from 'node:assert';
 
 test.describe('readJsonFileRelativeToRoot', () => {
   test('should read package.json', async () => {
