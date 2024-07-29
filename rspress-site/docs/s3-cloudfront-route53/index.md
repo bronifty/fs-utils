@@ -129,154 +129,18 @@ Typically the redirect is done with a CNAME record, but Route 53 is handling it 
 
 :::
 
-You can use the `:::` syntax to create custom containers and support custom titles. For example:
+## T-Shoot
 
-**Input:**
+Validate programmatically and t-shoot the result with dig. Let's make sure our apex and subdomain point to the distribution's ip address.
 
-```markdown
-:::tip
-This is a `block` of type `tip`
+![dig-distro](./dig-distro.png)
+
+![dig-apex](./dig-apex.png)
+
+![dig-www](./dig-www.png)
+
+:::tip{title="Milestone:"}
+
+All set. Open your site in a cognito window so it won't be cached.
+
 :::
-
-:::info
-This is a `block` of type `info`
-:::
-
-:::warning
-This is a `block` of type `warning`
-:::
-
-:::danger
-This is a `block` of type `danger`
-:::
-
-::: details
-This is a `block` of type `details`
-:::
-
-:::tip Custom Title
-This is a `block` of `Custom Title`
-:::
-
-:::tip{title="Custom Title"}
-This is a `block` of `Custom Title`
-:::
-```
-
-**Output:**
-
-:::tip
-This is a `block` of type `tip`
-:::
-
-:::info
-This is a `block` of type `info`
-:::
-
-:::danger
-This is a `block` of type `danger`
-:::
-
-::: details
-This is a `block` of type `details`
-:::
-
-:::tip Custom Title
-This is a `block` of `Custom Title`
-:::
-
-:::tip{title="Custom Title"}
-This is a `block` of `Custom Title`
-:::
-
-## Code Block
-
-### Basic Usage
-
-You can use the \`\`\` syntax to create code blocks and support custom titles. For example:
-
-**Input:**
-
-````md
-```js
-console.log('Hello World');
-```
-
-```js title="hello.js"
-console.log('Hello World');
-```
-````
-
-**Output:**
-
-```js
-console.log('Hello World');
-```
-
-```js title="hello.js"
-console.log('Hello World');
-```
-
-### Show Line Numbers
-
-If you want to display line numbers, you can enable the `showLineNumbers` option in the config file:
-
-```ts title="rspress.config.ts"
-export default {
-  // ...
-  markdown: {
-    showLineNumbers: true,
-  },
-};
-```
-
-### Wrap Code
-
-If you want to wrap long code line by default, you can enable the `defaultWrapCode` option in the config file:
-
-```ts title="rspress.config.ts"
-export default {
-  // ...
-  markdown: {
-    defaultWrapCode: true,
-  },
-};
-```
-
-### Line Highlighting
-
-You can also apply line highlighting and code block title at the same time, for example:
-
-**Input:**
-
-````md
-```js title="hello.js" {1,3-5}
-console.log('Hello World');
-
-const a = 1;
-
-console.log(a);
-
-const b = 2;
-
-console.log(b);
-```
-````
-
-**Ouput:**
-
-```js title="hello.js" {1,3-5}
-console.log('Hello World');
-
-const a = 1;
-
-console.log(a);
-
-const b = 2;
-
-console.log(b);
-```
-
-## Rustify MDX compiler
-
-You can enable Rustify MDX compiler by following config:
