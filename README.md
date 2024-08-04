@@ -28,6 +28,16 @@ console.log(
 
 ---
 
+## deleteBuckets
+
+```ts
+import { deleteBuckets } from '@bronifty/fs-utils';
+
+deleteBuckets('default', ['bronifty-dont-deleteme']).catch(console.error);
+```
+
+---
+
 ## readJson
 
 ```ts
