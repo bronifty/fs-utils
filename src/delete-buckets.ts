@@ -30,7 +30,10 @@ async function deleteBuckets(
         await deleteBucket(profile, bucket.Name);
         console.log(`Deleted bucket: ${bucket.Name}`);
       } catch (error) {
-        console.error(`Error processing bucket ${bucket.Name}:`, error.message);
+        console.error(
+          `Error processing bucket ${bucket.Name}:`,
+          (error as Error).message,
+        );
       }
     }
   }
