@@ -1,3 +1,4 @@
 import { deleteBuckets } from '../src/delete-buckets';
 
-deleteBuckets('default').catch(console.error);
+// Example usage:
+deleteBuckets('default', ['another-protected-bucket']).catch(console.error);
