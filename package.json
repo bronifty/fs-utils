@@ -31,6 +31,8 @@
     "node:ts": "node --experimental-strip-types read-json-file.cts"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.623.0",
+    "@aws-sdk/credential-provider-ini": "^3.623.0",
     "@modern-js/eslint-config": "2.56.2",
     "@modern-js/module-tools": "2.56.2",
     "@types/node": "~16.11.68",

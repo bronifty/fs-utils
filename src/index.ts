@@ -5,3 +5,8 @@ export { getOsArch } from './get-os-arch';
 export { getProjectRoot } from './get-project-root';
 export { readJson } from './read-json';
 export { getNestedProperty } from './colinhacks-get-nested-property';
+export { createS3Client } from './create-s3-client';
+export { listBuckets } from './list-buckets';
+export { emptyBucket } from './empty-bucket';
+export { deleteBucket } from './delete-bucket';
+export { deleteBuckets } from './delete-buckets';
